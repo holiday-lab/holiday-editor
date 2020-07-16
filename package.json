@@ -1,0 +1,20 @@
+{
+  "name": "markdown-parser",
+  "version": "1.0.0",
+  "description": "基于 Electron 的 Markdown 转译工具",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./dist/main.js"
+  },
+  "repository": "https://github.com/wjq990112/Markdown-Parser",
+  "keywords": [],
+  "author": "wjq990112",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^9.0.4",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.5"
+  }
+}
