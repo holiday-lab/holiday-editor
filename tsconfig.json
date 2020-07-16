@@ -9,5 +9,7 @@
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/main/*"],
+  // tsc 不包含视图层
+  "exclude": ["src/render/*"]
 }

@@ -6,7 +6,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "start": "npm run build && electron ./dist/main.js"
+    "start": "npm run build && electron ./dist/main.js & cd ./src/render && npm run start"
   },
   "repository": "https://github.com/wjq990112/Markdown-Parser",
   "keywords": [],
@@ -15,6 +15,7 @@
   "devDependencies": {
     "cz-conventional-changelog": "^3.2.0",
     "electron": "^9.0.4",
+    "electron-is-dev": "^1.2.0",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"
   },

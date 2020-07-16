@@ -1,18 +1,26 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 
+const isDev = require('electron-is-dev');
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
     },
     width: 800
   });
 
-  // and load the app use Url
-  mainWindow.loadURL('http://localhost:3000');
+  if (isDev) {
+    // load the app use Url in dev
+    mainWindow.loadURL('http://localhost:3000');
+  } else {
+    // load the app use File in prod
+    mainWindow.loadFile(path.join(__dirname, 'render/build/index.html'));
+  }
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
