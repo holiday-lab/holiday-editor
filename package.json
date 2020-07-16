@@ -13,8 +13,14 @@
   "author": "wjq990112",
   "license": "MIT",
   "devDependencies": {
+    "cz-conventional-changelog": "^3.2.0",
     "electron": "^9.0.4",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
