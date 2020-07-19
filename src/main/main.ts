@@ -1,17 +1,16 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain, Notification } from 'electron';
 import * as path from 'path';
-
-const isDev = require('electron-is-dev');
+import isDev = require('electron-is-dev');
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
+    width: 1280,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
-    },
-    width: 800
+    }
   });
 
   if (isDev) {
