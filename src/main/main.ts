@@ -16,13 +16,12 @@ function createWindow() {
   if (isDev) {
     // load the app use Url in dev
     mainWindow.loadURL('http://localhost:3000');
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools();
   } else {
     // load the app use File in prod
     mainWindow.loadFile(path.join(__dirname, 'render/build/index.html'));
   }
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
 }
 
 // This method will be called when Electron has finished
@@ -51,3 +50,10 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.on('copy-success', (event, options) => {
+  new Notification(options).show();
+});
+ipcMain.on('copy-fail', (event, options) => {
+  new Notification(options).show();
+});

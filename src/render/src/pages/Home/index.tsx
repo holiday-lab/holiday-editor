@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import hljs from 'highlight.js';
+import { clipboard, ipcRenderer } from 'electron';
 import { Converter } from 'showdown';
-import { clipboard } from 'electron';
 import { debounce } from 'lodash';
 import { Radio, Button } from 'antd';
 import {
@@ -25,6 +25,17 @@ const Home: React.FC = () => {
   const [richtext, setRichtext] = useState<string>('');
 
   const handleCopyClick = () => {
+    if (richtext) {
+      ipcRenderer.send('copy-success', {
+        title: '复制成功',
+        body: '赶紧到其他编辑器中粘贴吧~'
+      });
+    } else {
+      ipcRenderer.send('copy-fail', {
+        title: '复制失败',
+        body: '还没有输入内容欧~'
+      });
+    }
     clipboard.writeText(richtext);
   };
 

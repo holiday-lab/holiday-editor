@@ -44,6 +44,7 @@
     display: flex;
     box-sizing: border-box;
     height: calc(100vh - 64px);
+    overflow: hidden;
 
     &-input {
       box-sizing: border-box;
@@ -68,6 +69,7 @@
       width: 50%;
       height: 100%;
       padding: 24px 24px 0;
+      overflow: scroll;
     }
   }
 }
