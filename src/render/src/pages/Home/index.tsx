@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import hljs from 'highlight.js';
 import { clipboard, ipcRenderer } from 'electron';
 import { Converter } from 'showdown';
 import { debounce } from 'lodash';
-import { Radio, Button } from 'antd';
+import { Radio, Button, Modal } from 'antd';
 import {
   PlusSquareOutlined,
   FormatPainterOutlined,
@@ -21,24 +21,11 @@ enum CLOUD_TYPE {
 }
 
 const Home: React.FC = () => {
+  const [contentValue, setContentValue] = useState<string>('');
   const [hasUrlInput, setHasUrlInput] = useState<boolean>(false);
-  const [richtext, setRichtext] = useState<string>('');
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-  const handleCopyClick = () => {
-    if (richtext) {
-      ipcRenderer.send('copy-success', {
-        title: '复制成功',
-        body: '赶紧到其他编辑器中粘贴吧~'
-      });
-    } else {
-      ipcRenderer.send('copy-fail', {
-        title: '复制失败',
-        body: '还没有输入内容欧~'
-      });
-    }
-    clipboard.writeText(richtext);
-  };
-
+  // 切换图床
   const handleCloudChange = (e: RadioChangeEvent) => {
     const value = e.target.value;
     if (value === CLOUD_TYPE.OTHERS) {
@@ -48,20 +35,56 @@ const Home: React.FC = () => {
     }
   };
 
+  // 自定义样式
+  const handleStyleClick = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  // 复制富文本
+  const handleCopyClick = () => {
+    const wrapper = document.querySelector(
+      '.home-content-content'
+    ) as HTMLElement;
+    if (wrapper.innerHTML) {
+      ipcRenderer.send('copy-success', {
+        title: '复制成功',
+        body: '赶紧到其他编辑器中粘贴吧~'
+      });
+    }
+    clipboard.writeText(wrapper.innerHTML);
+  };
+
   // 防抖
   const handleInput = debounce((value: string) => {
     const content = new Converter({ tables: true });
     const html = content.makeHtml(value);
-    setRichtext(html);
+    const wrapper = document.querySelector(
+      '.home-content-content'
+    ) as HTMLElement;
+    wrapper.innerHTML = html;
     document.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightBlock(block as HTMLElement);
     });
   }, 300);
 
+  // 处理 Markdown 高亮代码
   const handleMarkdownChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
+    setContentValue(value);
     handleInput(value);
   };
+
+  // 保存自定义样式
+  const handleStyleSave = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  // 关闭自定义样式弹窗
+  const handleStyleCancel = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <section className="home">
@@ -95,6 +118,7 @@ const Home: React.FC = () => {
             type="primary"
             size="large"
             icon={<FormatPainterOutlined />}
+            onClick={handleStyleClick}
           >
             自定义样式
           </Button>
@@ -103,6 +127,7 @@ const Home: React.FC = () => {
             type="primary"
             size="large"
             icon={<CopyOutlined />}
+            disabled={!Boolean(contentValue)}
             onClick={handleCopyClick}
           >
             复制文本
@@ -117,14 +142,20 @@ const Home: React.FC = () => {
       <main className="home-content">
         <textarea
           className="home-content-input"
-          placeholder="请输入文章内容...（支持 Markdown / 富文本）"
+          placeholder="请输入文章内容或拖拽文件至此区域...（支持 Markdown / 富文本）"
+          value={contentValue}
           onChange={handleMarkdownChange}
         />
-        <div
-          className="home-content-content"
-          dangerouslySetInnerHTML={{ __html: richtext }}
-        />
+        <div className="home-content-content" />
       </main>
+      <Modal
+        title="自定义样式"
+        visible={modalVisible}
+        onOk={handleStyleSave}
+        onCancel={handleStyleCancel}
+      >
+        <textarea />
+      </Modal>
     </section>
   );
 };

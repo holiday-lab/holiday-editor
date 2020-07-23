@@ -14,12 +14,12 @@ function createWindow() {
   });
 
   if (isDev) {
-    // load the app use Url in dev
+    // Load the app use Url in dev
     mainWindow.loadURL('http://localhost:3000');
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
   } else {
-    // load the app use File in prod
+    // Load the app use File in prod
     mainWindow.loadFile(path.join(__dirname, 'render/build/index.html'));
   }
 }
@@ -37,6 +37,16 @@ app.on('ready', () => {
       createWindow();
     }
   });
+
+  // Notice of copy.
+  ipcMain.on('copy-success', (event, options) => {
+    new Notification(options).show();
+  });
+
+  // Get drag file
+  ipcMain.on('ondragstart', (event, path) => {
+    console.log(path);
+  });
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -50,10 +60,3 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
-
-ipcMain.on('copy-success', (event, options) => {
-  new Notification(options).show();
-});
-ipcMain.on('copy-fail', (event, options) => {
-  new Notification(options).show();
-});
