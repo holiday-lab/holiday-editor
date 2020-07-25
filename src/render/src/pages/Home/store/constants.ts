@@ -1,0 +1,10 @@
+/**
+ * @file Home 页面 ActionTypes
+ */
+enum constants {
+  CHANGE_MD_INPUT_VALUE = 'CHANGE_MD_INPUT_VALUE',
+  CHANGE_URL_INPUT_VISIBLE = 'CHANGE_URL_INPUT_VISIBLE',
+  CHANGE_CUSTOM_STYLE_VISIBLE = 'CHANGE_CUSTOM_STYLE_VISIBLE'
+}
+
+export default constants;
