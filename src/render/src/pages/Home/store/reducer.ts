@@ -4,7 +4,6 @@ import { IHomeState } from '../types';
 
 const defaultState: IHomeState = {
   mdInputValue: '',
-  urlInputVisible: false,
   customStyleVisible: false
 };
 
@@ -14,12 +13,6 @@ export default produce((draftState: IHomeState = defaultState, action) => {
     case constants.CHANGE_MD_INPUT_VALUE: {
       const { mdInputValue } = action;
       draftState.mdInputValue = mdInputValue;
-      return draftState;
-    }
-
-    case constants.CHANGE_URL_INPUT_VISIBLE: {
-      const { urlInputVisible } = draftState;
-      draftState.urlInputVisible = !urlInputVisible;
       return draftState;
     }
 

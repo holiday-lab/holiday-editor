@@ -1,6 +1,5 @@
 export interface IHomeState {
   mdInputValue: string;
-  urlInputVisible: boolean;
   customStyleVisible: boolean;
 }
 

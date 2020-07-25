@@ -5,10 +5,6 @@ export const changeMdInputValue = (mdInputValue: string) => ({
   mdInputValue
 });
 
-export const changeUrlInputVisible = () => ({
-  type: constants.CHANGE_URL_INPUT_VISIBLE
-});
-
 export const changeCustomStyleVisible = () => ({
   type: constants.CHANGE_CUSTOM_STYLE_VISIBLE
 });

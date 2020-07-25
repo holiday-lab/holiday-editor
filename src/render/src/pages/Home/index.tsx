@@ -1,11 +1,13 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import hljs from 'highlight.js';
+import juice from 'juice';
+import { table, code, AtomOneDark, AtomOneLight } from './template';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from './store';
 import { clipboard, ipcRenderer } from 'electron';
 import { Converter } from 'showdown';
-import { debounce } from 'lodash';
-import { Radio, Button, Modal } from 'antd';
+import { debounce, throttle } from 'lodash';
+import { Button, Modal } from 'antd';
 import {
   PlusSquareOutlined,
   FormatPainterOutlined,
@@ -25,7 +27,9 @@ enum CLOUD_TYPE {
 }
 
 const Home: React.FC = () => {
-  const { mdInputValue, urlInputVisible, customStyleVisible } = useSelector(
+  const [richText, setRichText] = useState<string>('');
+
+  const { mdInputValue, customStyleVisible } = useSelector(
     (state: IState) => state.home
   );
   const dispatch = useDispatch();
@@ -34,7 +38,9 @@ const Home: React.FC = () => {
   const handleMdInputChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    dispatch(actions.changeMdInputValue(event.target.value));
+    const inputValue = event.target.value;
+    dispatch(actions.changeMdInputValue(inputValue));
+    handleMdInputValueParse(inputValue);
   };
 
   // 切换 自定义样式 状态
@@ -53,6 +59,23 @@ const Home: React.FC = () => {
     dispatch(actions.changeCustomStyleVisible());
   };
 
+  // 转译 Markdown 防抖
+  const handleMdInputValueParse = debounce((value: string) => {
+    const converter = new Converter();
+    const richText = converter.makeHtml(value);
+    const ele = document.createElement('div');
+    ele.innerHTML = `<style>${table}${code}${AtomOneDark}</style>` + richText;
+    ele.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block as HTMLElement);
+    });
+    // TODO: 防止 XSS 攻击
+    const result = juice(ele.innerHTML, {
+      // 支持 !important
+      preserveImportant: true
+    });
+    setRichText(result);
+  }, 1000);
+
   useEffect(() => {}, []);
 
   return (
@@ -66,10 +89,6 @@ const Home: React.FC = () => {
             alignItems: 'center'
           }}
         >
-          <Radio.Group defaultValue={CLOUD_TYPE.QINIU} size="large">
-            <Radio.Button value={CLOUD_TYPE.QINIU}>七牛云</Radio.Button>
-            <Radio.Button value={CLOUD_TYPE.OTHERS}>其他云</Radio.Button>
-          </Radio.Group>
           <Button
             className="home-header-button"
             type="default"
@@ -96,11 +115,6 @@ const Home: React.FC = () => {
           >
             复制文本
           </Button>
-          <input
-            className="home-header-url"
-            hidden={!urlInputVisible}
-            placeholder="功能暂未上线，敬请期待..."
-          />
         </div>
       </header>
       <main className="home-content">
@@ -110,7 +124,10 @@ const Home: React.FC = () => {
           value={mdInputValue}
           onChange={handleMdInputChange}
         />
-        <div className="home-content-content" />
+        <div
+          className="home-content-content"
+          dangerouslySetInnerHTML={{ __html: richText }}
+        />
       </main>
       <Modal
         title="自定义样式"
