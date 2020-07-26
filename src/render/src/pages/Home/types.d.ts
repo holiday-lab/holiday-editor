@@ -1,6 +1,8 @@
 export interface IHomeState {
   mdInputValue: string;
   customStyleVisible: boolean;
+  codeTheme: TCodeTheme;
+  contentTheme: TContentTheme;
 }
 
 export interface IHomeMethods {
@@ -9,3 +11,10 @@ export interface IHomeMethods {
   handleCustomStyleConfirm: () => void;
   handleCustomStyleCancel: () => void;
 }
+
+export type TCodeTheme = 'AtomOneDark' | 'AtomOneLight';
+export type TContentTheme = 'AliOrange';
+
+export type TThemeObj = {
+  [key: string]: string;
+};

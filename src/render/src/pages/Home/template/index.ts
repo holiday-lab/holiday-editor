@@ -1,6 +1,12 @@
-import table from './table';
-import code from './code';
-import AtomOneDark from './AtomOneDark';
-import AtomOneLight from './AtomOneLight';
+import AliOrange from './base/AliOrange';
 
-export { table, code, AtomOneDark, AtomOneLight };
+import AtomOneDark from './code/AtomOneDark';
+import AtomOneLight from './code/AtomOneLight';
+
+export {
+  // 内容主题
+  AliOrange,
+  // 代码主题
+  AtomOneDark,
+  AtomOneLight
+};

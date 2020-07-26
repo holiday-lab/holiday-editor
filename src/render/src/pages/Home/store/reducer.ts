@@ -4,7 +4,9 @@ import { IHomeState } from '../types';
 
 const defaultState: IHomeState = {
   mdInputValue: '',
-  customStyleVisible: false
+  customStyleVisible: false,
+  codeTheme: 'AtomOneDark',
+  contentTheme: 'AliOrange'
 };
 
 export default produce((draftState: IHomeState = defaultState, action) => {
@@ -19,6 +21,18 @@ export default produce((draftState: IHomeState = defaultState, action) => {
     case constants.CHANGE_CUSTOM_STYLE_VISIBLE: {
       const { customStyleVisible } = draftState;
       draftState.customStyleVisible = !customStyleVisible;
+      return draftState;
+    }
+
+    case constants.CHANGE_CODE_THEME: {
+      const { codeTheme } = action;
+      draftState.codeTheme = codeTheme;
+      return draftState;
+    }
+
+    case constants.CHANGE_CONTENT_THEME: {
+      const { contentTheme } = action;
+      draftState.contentTheme = contentTheme;
       return draftState;
     }
 

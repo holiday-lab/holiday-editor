@@ -1,4 +1,8 @@
 export default `
+pre code {
+  display: -webkit-box !important
+}
+
 table {
   display: table;
   text-align: left;
