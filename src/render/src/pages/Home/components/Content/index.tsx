@@ -25,7 +25,6 @@ const Content: React.FC = () => {
   ) => {
     const inputValue = event.target.value;
     dispatch(actions.changeMdInputValue(inputValue));
-    handleMdInputValueParse(inputValue);
   };
 
   // 转译 Markdown 防抖
@@ -39,6 +38,11 @@ const Content: React.FC = () => {
     );
     setRichText(result);
   }, 500);
+
+  useEffect(() => {
+    console.log('render');
+    handleMdInputValueParse(mdInputValue);
+  }, [mdInputValue, codeTheme, contentTheme]);
 
   return (
     <main className="home-content">

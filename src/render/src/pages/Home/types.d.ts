@@ -12,7 +12,7 @@ export interface IHomeMethods {
   handleCustomStyleCancel: () => void;
 }
 
-export type TCodeTheme = 'AtomOneDark' | 'AtomOneLight';
+export type TCodeTheme = 'AtomOneDark' | 'AtomOneLight' | 'Dark';
 export type TContentTheme = 'AliOrange';
 
 export type TThemeObj = {

@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../store';
 import CodeTheme from '../../template/code';
@@ -66,30 +66,46 @@ const Header: React.FC = () => {
         onCancel={handleCustomStyleCancel}
       >
         <div className="home-modal-block">
-          <Select
-            className="home-modal-select"
-            defaultValue={codeTheme}
-            onChange={handleCodeThemeChange}
-          >
-            {Object.keys(CodeTheme).map((key) => (
-              <Option key={key} value={key}>
-                {key}
-              </Option>
-            ))}
-          </Select>
+          <label>
+            代码主题：
+            <Select
+              className="home-modal-select"
+              defaultValue={codeTheme}
+              onChange={handleCodeThemeChange}
+            >
+              {Object.keys(CodeTheme).map((key) => (
+                <Option key={key} value={key}>
+                  {key}
+                </Option>
+              ))}
+            </Select>
+          </label>
+          <textarea
+            className="home-modal-input"
+            placeholder="输入自定义代码样式...（将会覆盖选中的代码主题）"
+            value={customCodeTheme}
+          />
         </div>
         <div className="home-modal-block">
-          <Select
-            className="home-modal-select"
-            defaultValue={contentTheme}
-            onChange={handleContentThemeChange}
-          >
-            {Object.keys(ContentTheme).map((key) => (
-              <Option key={key} value={key}>
-                {key}
-              </Option>
-            ))}
-          </Select>
+          <label>
+            文章主题：
+            <Select
+              className="home-modal-select"
+              defaultValue={contentTheme}
+              onChange={handleContentThemeChange}
+            >
+              {Object.keys(ContentTheme).map((key) => (
+                <Option key={key} value={key}>
+                  {key}
+                </Option>
+              ))}
+            </Select>
+          </label>
+          <textarea
+            className="home-modal-input"
+            placeholder="输入自定义文章样式...（将会覆盖选中的文章主题）"
+            value={customContentTheme}
+          />
         </div>
       </Modal>
       <input className="home-header-input" placeholder="请输入文章标题..." />
