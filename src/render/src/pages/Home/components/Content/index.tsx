@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from 'react';
 import generator from '../../extensions';
 import { useSelector, useDispatch } from 'react-redux';
 import { Converter } from 'showdown';
-import { debounce } from 'lodash';
+import { useDebounceFn } from 'ahooks';
 import { actions } from '../../store';
 import CodeTheme from '../../template/code';
 import ContentTheme from '../../template/base';
@@ -28,19 +28,21 @@ const Content: React.FC = () => {
   };
 
   // 转译 Markdown 防抖
-  const handleMdInputValueParse = debounce((value: string) => {
-    const converter = new Converter();
-    const richText = converter.makeHtml(value);
-    const result = generator(
-      CodeTheme[codeTheme],
-      ContentTheme[contentTheme],
-      richText
-    );
-    setRichText(result);
-  }, 500);
+  const { run: handleMdInputValueParse } = useDebounceFn(
+    (value: string) => {
+      const converter = new Converter();
+      const richText = converter.makeHtml(value);
+      const result = generator(
+        CodeTheme[codeTheme],
+        ContentTheme[contentTheme],
+        richText
+      );
+      setRichText(result);
+    },
+    { wait: 500 }
+  );
 
   useEffect(() => {
-    console.log('render');
     handleMdInputValueParse(mdInputValue);
   }, [mdInputValue, codeTheme, contentTheme]);
 
