@@ -1,0 +1,39 @@
+.home {
+  &-style {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    padding: 24px;
+    border-top: 1px solid #dcdcdc;
+
+    &-block {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      height: 100%;
+    }
+
+    &-select {
+      width: 200px;
+    }
+
+    &-input {
+      box-sizing: border-box;
+      width: 90%;
+      height: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      resize: none;
+      border-color: #dcdcdc;
+      outline: none;
+    }
+
+    &-input::placeholder {
+      font-weight: bold;
+    }
+  }
+}

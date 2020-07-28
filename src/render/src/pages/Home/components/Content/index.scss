@@ -5,25 +5,33 @@
     height: calc(100vh - 64px);
     overflow: hidden;
 
-    &-input {
+    &-left {
+      display: flex;
+      flex-direction: column;
       box-sizing: border-box;
       width: 50%;
       height: 100%;
+      border-right: 1px solid #dcdcdc;
+    }
+
+    &-input {
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
       padding: 24px 24px 0;
       border: 0;
-      outline: 0;
+      outline: none;
       resize: none;
       color: #000;
       font-size: 18px;
       line-height: 36px;
-      border-right: 1px solid #dcdcdc;
     }
 
     &-input::placeholder {
       font-weight: bold;
     }
 
-    &-content {
+    &-right {
       box-sizing: border-box;
       width: 50%;
       height: 100%;

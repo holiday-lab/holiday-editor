@@ -1,36 +1,4 @@
 .home {
-  &-modal {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    &-block {
-      display: inline-flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 300px;
-      height: 300px;
-    }
-
-    &-select {
-      width: 150px;
-    }
-
-    &-input {
-      box-sizing: border-box;
-      width: 250px;
-      height: 250px;
-      padding: 12px;
-      margin-top: 12px;
-      resize: none;
-    }
-
-    &-input::placeholder {
-      font-weight: bold;
-    }
-  }
-
   &-header {
     display: flex;
     justify-content: space-between;
@@ -45,7 +13,7 @@
       width: 50%;
       height: 100%;
       border: 0;
-      outline: 0;
+      outline: none;
       color: #000;
       font-size: 36px;
       font-weight: bold;

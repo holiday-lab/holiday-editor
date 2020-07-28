@@ -3,6 +3,8 @@ export interface IHomeState {
   customStyleVisible: boolean;
   codeTheme: TCodeTheme;
   contentTheme: TContentTheme;
+  customCodeTheme: string;
+  customContentTheme: string;
 }
 
 export interface IHomeMethods {

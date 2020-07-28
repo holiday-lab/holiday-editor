@@ -6,7 +6,9 @@ const defaultState: IHomeState = {
   mdInputValue: '',
   customStyleVisible: false,
   codeTheme: 'AtomOneDark',
-  contentTheme: 'AliOrange'
+  contentTheme: 'AliOrange',
+  customCodeTheme: '',
+  customContentTheme: ''
 };
 
 export default produce((draftState: IHomeState = defaultState, action) => {
@@ -33,6 +35,18 @@ export default produce((draftState: IHomeState = defaultState, action) => {
     case constants.CHANGE_CONTENT_THEME: {
       const { contentTheme } = action;
       draftState.contentTheme = contentTheme;
+      return draftState;
+    }
+
+    case constants.CHANGE_CUSTOM_CODE_THEME: {
+      const { customCodeTheme } = action;
+      draftState.customCodeTheme = customCodeTheme;
+      return draftState;
+    }
+
+    case constants.CHANGE_CUSTOM_CONTENT_THEME: {
+      const { customContentTheme } = action;
+      draftState.customCodeTheme = customContentTheme;
       return draftState;
     }
 

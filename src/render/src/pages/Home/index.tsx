@@ -7,10 +7,10 @@ import Content from './components/Content';
 
 import './index.scss';
 
-enum CLOUD_TYPE {
-  QINIU = 'qiniu',
-  OTHERS = 'others'
-}
+// enum CLOUD_TYPE {
+//   QINIU = 'qiniu',
+//   OTHERS = 'others'
+// }
 
 const Home: React.FC = () => {
   useEffect(() => {}, []);
