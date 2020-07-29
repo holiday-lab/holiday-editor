@@ -1,8 +1,10 @@
 import React, { memo, useState, useEffect } from 'react';
+import fs from 'fs';
 import generator from '../../extensions';
 import { useSelector, useDispatch } from 'react-redux';
 import { Converter } from 'showdown';
 import { useDebounceFn } from 'ahooks';
+import { ipcRenderer } from 'electron';
 import { actions } from '../../store';
 import CodeTheme from '../../template/code';
 import ContentTheme from '../../template/base';
@@ -35,7 +37,12 @@ const Content: React.FC = () => {
   // 转译 Markdown 防抖
   const { run: handleMdInputValueParse } = useDebounceFn(
     (value: string) => {
-      const converter = new Converter();
+      const converter = new Converter({
+        strikethrough: true,
+        tables: true,
+        tasklists: true,
+        simpleLineBreaks: true
+      });
       const richText = converter.makeHtml(value);
       // 样式组合 将自定义样式和主题同时注入 自定义样式覆盖主题
       const result = generator(
@@ -50,19 +57,49 @@ const Content: React.FC = () => {
 
   useEffect(() => {
     handleMdInputValueParse(mdInputValue);
+
+    const element = document.querySelector('#drag') as HTMLElement;
+    element.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const files = (event.dataTransfer as DataTransfer).files;
+      if (files && files.length > 0) {
+        const path = files[0].path;
+        if (/.md$/g.test(path)) {
+          const fileContent = fs.readFileSync(path).toString();
+          // 触发 Markdown 输入
+          dispatch(actions.changeMdInputValue(fileContent));
+          const options = {
+            title: '导入成功',
+            body: 'Markdown 转换成功，快点击复制去编辑器中粘贴吧~'
+          };
+          ipcRenderer.send('ondragstart', options);
+        } else {
+          const options = {
+            title: '导入失败',
+            body: '您导入的不是 Markdown 文件欧~'
+          };
+          ipcRenderer.send('ondragstart', options);
+        }
+      }
+    });
+    return () => {
+      element.removeEventListener('drop', () => {});
+    };
   }, [
     mdInputValue,
     codeTheme,
     contentTheme,
     customCodeTheme,
     customContentTheme,
-    handleMdInputValueParse
+    handleMdInputValueParse,
+    dispatch
   ]);
 
   return (
     <main className="home-content">
       <div className="home-content-left">
         <textarea
+          id="drag"
           className="home-content-input"
           placeholder="请输入文章内容或拖拽文件至此区域...（支持 Markdown / 富文本）"
           value={mdInputValue}

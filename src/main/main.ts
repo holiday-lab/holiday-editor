@@ -39,13 +39,16 @@ app.on('ready', () => {
   });
 
   // Notice of copy.
-  ipcMain.on('copy-success', (event, options) => {
-    new Notification(options).show();
+  ipcMain.on('copy-success', () => {
+    new Notification({
+      title: '复制成功',
+      body: '赶快到编辑器中去粘贴吧~'
+    }).show();
   });
 
-  // Get drag file
-  ipcMain.on('ondragstart', (event, path) => {
-    console.log(path);
+  // Get drag file.
+  ipcMain.on('ondragstart', (event, options) => {
+    new Notification(options).show();
   });
 });
 

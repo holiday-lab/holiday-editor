@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { clipboard } from 'electron';
+import { clipboard, ipcRenderer } from 'electron';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../store';
 
@@ -28,6 +28,7 @@ const Header: React.FC = () => {
     const html = (document.querySelector('.home-content-right') as HTMLElement)
       .innerHTML;
     clipboard.writeHTML(html);
+    ipcRenderer.send('copy-success');
   };
 
   return (

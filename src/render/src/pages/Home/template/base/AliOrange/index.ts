@@ -1,6 +1,6 @@
 export default `
 pre code {
-  display: -webkit-box !important
+  display: -webkit-box !important;
 }
 
 table {
@@ -34,5 +34,29 @@ table tr th {
 
 tbody {
   border: 0;
+}
+
+code {
+  padding: 0 6px;
+  font-size: 16px;
+  line-height: 18px;
+  color: #ffb90f;
+  border-radius: 4px;
+  background-color: #282c34;
+}
+
+strong {
+  color: #ffb90f;
+}
+
+img {
+  width: 100%;
+}
+
+blockquote {
+  box-sizing: content-box;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: #dcdcdc;
 }
 `;
