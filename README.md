@@ -27,7 +27,7 @@ npm run start:electron
 
 - [x] 代码高亮
 - [x] 修复剪贴板
-- [ ] Markdown 文件拖拽读取
+- [x] Markdown 文件拖拽读取
 - [ ] 头图上传至七牛云
 - [x] 自定义样式
 - [ ] NLP 分析关键词自动搜索头图

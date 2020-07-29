@@ -46,6 +46,19 @@ const CustomStyles: React.FC = () => {
     dispatch(actions.changeCustomContentTheme(e.target.value));
   };
 
+  // FIXME: 禁用 Tab 切换
+  const handleTabPress = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+    type: 'code' | 'content'
+  ) => {
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      if (type === 'code') {
+      } else {
+      }
+    }
+  };
+
   return (
     <div className="home-style" hidden={!customStyleVisible}>
       <div className="home-style-block">
@@ -68,6 +81,7 @@ const CustomStyles: React.FC = () => {
           placeholder="输入自定义代码样式...（将会覆盖选中的代码主题）"
           value={customCodeTheme}
           onChange={handleCustomCodeThemeChange}
+          onKeyDown={(e) => handleTabPress(e, 'code')}
         />
       </div>
       <div className="home-style-block">
@@ -90,6 +104,7 @@ const CustomStyles: React.FC = () => {
           placeholder="输入自定义文章样式...（将会覆盖选中的文章主题）"
           value={customContentTheme}
           onChange={handleCustomContentThemeChange}
+          onKeyDown={(e) => handleTabPress(e, 'content')}
         />
       </div>
     </div>

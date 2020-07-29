@@ -46,7 +46,7 @@ export default produce((draftState: IHomeState = defaultState, action) => {
 
     case constants.CHANGE_CUSTOM_CONTENT_THEME: {
       const { customContentTheme } = action;
-      draftState.customCodeTheme = customContentTheme;
+      draftState.customContentTheme = customContentTheme;
       return draftState;
     }
 

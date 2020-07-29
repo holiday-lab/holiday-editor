@@ -9,7 +9,7 @@
     "start:electron": "nodemon --watch ./src/main/* --exec 'npm run build && electron ./dist/main.js'",
     "start:react": "cd ./src/render && npm run start"
   },
-  "repository": "https://github.com/wjq990112/Markdown-Parser",
+  "repository": "https://github.com/wjq990112/Holiday-Editor",
   "keywords": [],
   "author": "wjq990112",
   "license": "MIT",

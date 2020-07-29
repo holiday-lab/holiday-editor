@@ -10,7 +10,7 @@ table {
 }
 
 table tr {
-  border: 0;
+  border: none;
   border-top: 1px solid #ccc;
   background-color: white;
 }
@@ -33,7 +33,7 @@ table tr th {
 }
 
 tbody {
-  border: 0;
+  border: none;
 }
 
 code {

@@ -55,6 +55,13 @@ const Content: React.FC = () => {
     { wait: 500 }
   );
 
+  // FIXME: 禁用 Tab 切换
+  const handleTabPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.keyCode === 9) {
+      e.preventDefault();
+    }
+  };
+
   useEffect(() => {
     handleMdInputValueParse(mdInputValue);
 
@@ -104,6 +111,7 @@ const Content: React.FC = () => {
           placeholder="请输入文章内容或拖拽文件至此区域...（支持 Markdown / 富文本）"
           value={mdInputValue}
           onChange={handleMdInputChange}
+          onKeyDown={handleTabPress}
         />
         <CustomStyles />
       </div>
