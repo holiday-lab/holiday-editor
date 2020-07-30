@@ -1,4 +1,10 @@
-import { app, BrowserWindow, ipcMain, Notification } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Notification,
+  globalShortcut
+} from 'electron';
 import * as path from 'path';
 import isDev = require('electron-is-dev');
 
@@ -16,8 +22,22 @@ function createWindow() {
   if (isDev) {
     // Load the app use Url in dev
     mainWindow.loadURL('http://localhost:3000');
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+
+    // Register shortcut.
+    globalShortcut.register('CmdOrCtrl+Shift+O', () => {
+      if (mainWindow.webContents.isDevToolsOpened()) {
+        // Close the DevTools.
+        mainWindow.webContents.closeDevTools();
+      } else {
+        // Open the DevTools.
+        mainWindow.webContents.openDevTools();
+      }
+    });
+
+    // Register shortcut.
+    globalShortcut.register('CmdOrCtrl+Shift+S', () => {
+      mainWindow.webContents.send('open-custom-style');
+    });
   } else {
     // Load the app use File in prod
     mainWindow.loadFile(path.join(__dirname, 'render/build/index.html'));

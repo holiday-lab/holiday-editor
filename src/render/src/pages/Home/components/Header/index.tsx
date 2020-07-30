@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { clipboard, ipcRenderer } from 'electron';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../store';
@@ -30,6 +30,12 @@ const Header: React.FC = () => {
     clipboard.writeHTML(html);
     ipcRenderer.send('copy-success');
   };
+
+  useEffect(() => {
+    ipcRenderer.on('open-custom-style', () => {
+      dispatch(actions.changeCustomStyleVisible());
+    });
+  }, [dispatch]);
 
   return (
     <header className="home-header">

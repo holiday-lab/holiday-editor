@@ -2,13 +2,18 @@ import React, { memo, useState, useEffect } from 'react';
 import fs from 'fs';
 import generator from '../../extensions';
 import { useSelector, useDispatch } from 'react-redux';
-import { Converter } from 'showdown';
+import { Converter, extension } from 'showdown';
 import { useDebounceFn } from 'ahooks';
 import { ipcRenderer } from 'electron';
 import { actions } from '../../store';
 import CodeTheme from '../../template/code';
 import ContentTheme from '../../template/base';
 import CustomStyles from '../CustomStyles';
+import Header from '../../extensions/header';
+import Footer from '../../extensions/footer';
+import SubTitle from '../../extensions/subTitle';
+import Link from '../../extensions/link';
+import Title from '../../extensions/title';
 
 import { IState } from '../../../../types';
 
@@ -38,10 +43,10 @@ const Content: React.FC = () => {
   const { run: handleMdInputValueParse } = useDebounceFn(
     (value: string) => {
       const converter = new Converter({
+        extensions: ['header', 'footer', 'subTitle', 'link', 'title'],
         strikethrough: true,
         tables: true,
-        tasklists: true,
-        simpleLineBreaks: true
+        tasklists: true
       });
       const richText = converter.makeHtml(value);
       // 样式组合 将自定义样式和主题同时注入 自定义样式覆盖主题
@@ -64,6 +69,12 @@ const Content: React.FC = () => {
 
   useEffect(() => {
     handleMdInputValueParse(mdInputValue);
+
+    extension('header', Header[contentTheme]);
+    extension('footer', Footer[contentTheme]);
+    extension('subTitle', SubTitle[contentTheme]);
+    extension('link', Link[contentTheme]);
+    extension('title', Title[contentTheme]);
 
     const element = document.querySelector('#drag') as HTMLElement;
     element.addEventListener('drop', (event) => {

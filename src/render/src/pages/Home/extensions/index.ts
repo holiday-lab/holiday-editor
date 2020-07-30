@@ -1,6 +1,12 @@
 import hljs from 'highlight.js';
 import juice from 'juice';
 
+/**
+ * @function 文章生成
+ * @param codeStyle 代码主题
+ * @param contentStyle 内容主题
+ * @param html 内容 HTML
+ */
 const generator = (codeStyle: string, contentStyle: string, html: string) => {
   const element = document.createElement('div');
   element.innerHTML = `
@@ -8,7 +14,7 @@ const generator = (codeStyle: string, contentStyle: string, html: string) => {
       ${contentStyle}
       ${codeStyle}
     </style>
-    <section>
+    <section data-select="root">
       ${html}
     </section>
   `;
@@ -18,14 +24,6 @@ const generator = (codeStyle: string, contentStyle: string, html: string) => {
     const innerHTML = block.innerHTML.replace(/ /g, '&nbsp;');
     block.innerHTML = innerHTML;
     hljs.highlightBlock(block as HTMLElement);
-  });
-
-  // 修复 注释后无换行
-  element.querySelectorAll('.hljs-comment').forEach((span) => {
-    const innerHTML = span.innerHTML;
-    if (!/\n$/g.test(innerHTML)) {
-      span.innerHTML = `${innerHTML}\n`;
-    }
   });
 
   let result = element.innerHTML;

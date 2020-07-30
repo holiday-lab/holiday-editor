@@ -6,7 +6,7 @@ const defaultState: IHomeState = {
   mdInputValue: '',
   customStyleVisible: false,
   codeTheme: 'AtomOneDark',
-  contentTheme: 'AliOrange',
+  contentTheme: 'TaobaoFED',
   customCodeTheme: '',
   customContentTheme: ''
 };

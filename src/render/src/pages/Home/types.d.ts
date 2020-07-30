@@ -15,7 +15,7 @@ export interface IHomeMethods {
 }
 
 export type TCodeTheme = 'AtomOneDark' | 'AtomOneLight' | 'Dark';
-export type TContentTheme = 'AliOrange';
+export type TContentTheme = 'TaobaoFED';
 
 export type TThemeObj = {
   [key: string]: string;

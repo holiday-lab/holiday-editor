@@ -1,9 +1,9 @@
-import AliOrange from './AliOrange';
+import TaobaoFED from './TaobaoFED';
 
 import { TThemeObj } from '../../types';
 
 const ContentTheme: TThemeObj = {
-  AliOrange
+  TaobaoFED
 };
 
 export default ContentTheme;
