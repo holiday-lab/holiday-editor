@@ -14,6 +14,7 @@ import Footer from '../../extensions/footer';
 import SubTitle from '../../extensions/subTitle';
 import Link from '../../extensions/link';
 import Title from '../../extensions/title';
+import Image from '../../extensions/image';
 
 import { IState } from '../../../../types';
 
@@ -43,7 +44,7 @@ const Content: React.FC = () => {
   const { run: handleMdInputValueParse } = useDebounceFn(
     (value: string) => {
       const converter = new Converter({
-        extensions: ['header', 'footer', 'subTitle', 'link', 'title'],
+        extensions: ['header', 'footer', 'subTitle', 'link', 'title', 'image'],
         strikethrough: true,
         tables: true,
         tasklists: true
@@ -75,6 +76,7 @@ const Content: React.FC = () => {
     extension('subTitle', SubTitle[contentTheme]);
     extension('link', Link[contentTheme]);
     extension('title', Title[contentTheme]);
+    extension('image', Image[contentTheme]);
 
     const element = document.querySelector('#drag') as HTMLElement;
     element.addEventListener('drop', (event) => {

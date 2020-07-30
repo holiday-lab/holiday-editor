@@ -6,7 +6,7 @@ const footerExtension = {
       <section style="margin-right: auto; margin-left: auto;">
         <img
           src="https://imgedit.newrank.cn/edit/upload/photo/2020/05/07/7621786bd972437484bd7774d803bd3f.gif"
-          style="vertical-align: top;"
+          style="width: 100%; vertical-align: top;"
         />
       </section>
     </section>
@@ -70,7 +70,7 @@ const footerExtension = {
       <section style="margin-right: auto; margin-left: auto;">
         <img
           src="https://imgedit.newrank.cn/edit/upload/photo/2020/05/07/7621786bd972437484bd7774d803bd3f.gif"
-          style="vertical-align: top;"
+          style="width: 100%; vertical-align: top;"
         />
       </section>
     </section>
