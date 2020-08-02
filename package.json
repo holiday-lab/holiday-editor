@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "基于 Electron 的 Markdown 转译工具",
   "scripts": {
+    "release:mac": "electron-builder -m",
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",

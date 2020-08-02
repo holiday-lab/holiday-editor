@@ -40,7 +40,7 @@ function createWindow() {
     });
   } else {
     // Load the app use File in prod
-    mainWindow.loadFile(path.join(__dirname, 'render/build/index.html'));
+    mainWindow.loadFile(path.join(__dirname, '../build/index.html'));
   }
 }
 

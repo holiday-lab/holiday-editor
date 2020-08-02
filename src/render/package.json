@@ -2,6 +2,7 @@
   "name": "holiday-editor",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@babel/core": "7.9.0",
